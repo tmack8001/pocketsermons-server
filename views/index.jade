@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    // Libraries
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js')
+
+    // Angular Templates
+    include ../public/javascripts/templates/sermons.html
+    include ../public/javascripts/templates/sermonDetails.html
+
+    // Main AngularJS App
+    script(src='/javascripts/app.js')
+    script(src='/javascripts/sermoncast/sermoncast.js')
+    script(src='/javascripts/sermoncast/controllers.js')
+    script(src='/javascripts/sermoncast/factories/sermonFactory.js')
+    script(src='/javascripts/sermoncast/routes/sermonRoutes.js')
+
+    h1= title
+
+    ng-view

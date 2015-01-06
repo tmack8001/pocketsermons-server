@@ -1,0 +1,44 @@
+<script type="text/ng-template" id="/sermonDetails.html">
+    <button ng-show="!editing" ng-click="edit()">edit</button>
+    <button ng-show="!editing" ng-click="remove()">remove</button>
+
+    <!-- editing text fields and update/cancel buttons -->
+    <section ng-show="editing">
+        permalink: <input ng-show="editing" type="text" ng-model="sermon.permalink"> <br />
+        title: <input ng-show="editing" type="text" ng-model="sermon.title"> <br />
+        date: <input ng-show="editing" type="datetime" ng-model="sermon.date"> <br />
+        description <textarea ng-show="editing" ng-model="sermon.description"></textarea> <br />
+        video uri: <input ng-show="editing" type="url" ng-model="sermon.videoUri">
+
+        series: <input ng-show="editing" type="text" ng-model="sermon.series._id"> <br />
+        church: <input ng-show="editing" type="text" ng-model="sermon.church._id"> <br />
+
+        <br /><br />
+
+        <button ng-show="editing" ng-click="update()">update</button>
+        <button ng-show="editing" ng-click="remove()">remove</button>
+        <button ng-show="editing" ng-click="cancel()">cancel</button>
+    </section>
+
+    <!-- viewing sermon information -->
+    <article ng-show="!editing">
+        <header>
+            <h1>{{sermon.title}}</h1>
+            <h4>{{sermon.series.title}}</h4>
+            <p>
+                Date: <time pubdate="pubdate" datetime="{{sermon.date}}">{{sermon.date}}</time> <br />
+                Speaker: {{sermon.speakers[0].givenName}} {{sermon.speakers[0].familyName}}
+            </p>
+            <p></p>
+        </header>
+
+        <p>{{sermon.description}}</p>
+
+        <footer>
+            <p>
+                {{sermon.church.name}} <br />
+                <small>An {{sermon.church.denomination}} Church</small>
+            </p>
+        </footer>
+    </article>
+</script>
