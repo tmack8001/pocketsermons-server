@@ -1,8 +1,9 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     var paths = {
         frontjs: ['public/javascripts/*.js', 'public/javascripts/**/*.js'],
         backjs: ['routes/*.js', 'models/*.js', 'app.js'],
-        testjs: ['test/**/*.js']
+        testjs: ['test/**/*.js'],
+        html: ['views/*.jade', 'public/**/*.html']
     };
 
     grunt.config.init({
@@ -24,26 +25,38 @@ module.exports = function(grunt) {
             }
         },
 
-        watch: {
-            gruntfile: {
-                files: '<%= jshint.gruntfile.src %>',
-                tasks: ['jshint:gruntfile']
-            },
+        nodemon: {
+            options: {
+                watch: paths.backjs,
+                callback: function(nodemon) {
+                    nodemon.on('log', function (event) {
+                        console.log(event.colour)
+                    });
 
+                    nodemon.on('restart', function() {
+                        require('fs').writeFileSync('.rebooted', 'rebooted');
+                    });
+                }
+            },
+            dev: {
+                script: './bin/www'
+            }
+        },
+
+        watch: {
+            options: {
+                spawn: false
+            },
             frontend: {
-                files: paths.frontjs,
+                files: paths.frontjs.concat(paths.html).concat(['.rebooted']),
                 tasks: ['jshint:frontend'],
                 options: {
-                    spawn: false
+                    livereload: true
                 }
             },
-
             backend: {
                 files: paths.backjs,
-                tasks: ['jshint:backend'],
-                options: {
-                    spawn: false
-                }
+                tasks: ['jshint:backend']
             }
         },
 
@@ -52,12 +65,13 @@ module.exports = function(grunt) {
                 logConcurrentOutput: true
             },
             dev: {
-                tasks: ['watch:frontend', 'watch:backend']
+                tasks: ['nodemon', 'watch:frontend', 'watch:backend']
             }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-concurrent');
 
