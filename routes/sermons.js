@@ -1,6 +1,3 @@
-var express = require('express');
-var mongoose = require('mongoose');
-
 var Sermon = require('../models/sermon');
 
 /**
@@ -23,13 +20,13 @@ exports.findAll = function (req, res) {
         } else {
             return console.log(err);
         }
-    }).populate("church series speakers");
+    }).populate('church series speakers');
 };
 
 /* CREATE sermon instance */
 exports.create = function (req, res) {
     var sermon;
-    console.log("POST: ");
+    console.log('POST: ');
     console.log(req.body);
     sermon = new Sermon({
         permalink: req.body.permalink,
@@ -43,7 +40,7 @@ exports.create = function (req, res) {
     });
     sermon.save(function (err) {
         if (!err) {
-            console.log("created");
+            console.log('created');
             return res.send(sermon);
         } else {
             console.log(err);
@@ -61,7 +58,7 @@ exports.findById = function (req, res) {
             console.log(err);
             res.send({'error': 'An error has occurred - ' + err});
         }
-    }).populate("church series speakers");
+    }).populate('church series speakers');
 };
 
 /* UPDATE single sermon by :id */
@@ -77,7 +74,7 @@ exports.update = function (req, res) {
         sermon.series = req.body.series;
         return sermon.save(function (err) {
             if (!err) {
-                console.log("updated");
+                console.log('updated');
                 res.send(sermon);
             } else {
                 console.log(err);
@@ -109,7 +106,7 @@ exports.patch = function (req, res) {
             sermon.series = req.body.series;
         return sermon.save(function (err) {
             if (!err) {
-                console.log("updated");
+                console.log('updated');
                 res.send(sermon);
             } else {
                 console.log(err);
@@ -124,7 +121,7 @@ exports.remove = function (req, res) {
     return Sermon.findById(req.params.id, function (err, sermon) {
         return sermon.remove(function (err) {
             if (!err) {
-                console.log("removed");
+                console.log('removed');
                 res.send('');
             } else {
                 console.log(err);

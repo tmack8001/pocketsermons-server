@@ -11,7 +11,7 @@ angular.module('sermoncast')
                 $scope.sermons.push(sermon);
                 $scope.newSermon = ''; // clear textbox
             });
-        }
+        };
     }])
 
     .controller('SermonDetailCtrl', ['$scope', '$routeParams', 'Sermons', '$location', function ($scope, $routeParams, Sermons, $location) {
@@ -23,7 +23,7 @@ angular.module('sermoncast')
 
             sermon.series = sermon.series._id;
             sermon.church = sermon.church._id;
-            sermon.speakers = sermon.speakers.map.call(elems, function(obj) {
+            sermon.speakers = [].map.call(sermon.speakers, function(obj) {
                 return obj._id;
             });
 

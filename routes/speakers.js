@@ -1,6 +1,3 @@
-var express = require('express');
-var mongoose = require('mongoose');
-
 var Speaker = require('../models/speaker');
 
 /**
@@ -30,7 +27,7 @@ exports.findAll = function (req, res) {
 /* CREATE speaker instance */
 exports.create = function (req, res) {
     var speaker;
-    console.log("POST: ");
+    console.log('POST: ');
     console.log(req.body);
     speaker = new Speaker({
         permalink: req.body.permalink,
@@ -42,11 +39,11 @@ exports.create = function (req, res) {
     });
     speaker.save(function (err) {
         if (!err) {
-            console.log("created");
+            console.log('created');
             return res.send(speaker);
         } else {
             console.log(err);
-            return res.send({'error':'An error has occurred - ' + err});
+            return res.send({'error': 'An error has occurred - ' + err});
         }
     });
 };
@@ -58,7 +55,7 @@ exports.findById = function (req, res) {
             return res.send(speaker);
         } else {
             console.log(err);
-            return res.send({'error':'An error has occurred - ' + err});
+            return res.send({'error': 'An error has occurred - ' + err});
         }
     });
 };
@@ -74,26 +71,26 @@ exports.update = function (req, res) {
         speaker.affiliation = req.body.affiliation;
         return speaker.save(function (err) {
             if (!err) {
-                console.log("updated");
+                console.log('updated');
                 return res.send(speaker);
             } else {
                 console.log(err);
-                res.send({'error':'An error has occurred - ' + err});
+                res.send({'error': 'An error has occurred - ' + err});
             }
         });
     });
 };
 
 /* DELETE single speakeråß by :id */
-exports.remove = function (req, res){
+exports.remove = function (req, res) {
     return Speaker.findById(req.params.id, function (err, speaker) {
         return speaker.remove(function (err) {
             if (!err) {
-                console.log("removed");
+                console.log('removed');
                 return res.send('');
             } else {
                 console.log(err);
-                res.send({'error':'An error has occurred - ' + err});
+                res.send({'error': 'An error has occurred - ' + err});
             }
         });
     });

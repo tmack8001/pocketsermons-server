@@ -1,6 +1,3 @@
-var express = require('express');
-var mongoose = require('mongoose');
-
 var Church = require('../models/church');
 
 /**
@@ -24,7 +21,7 @@ exports.findAll = function (req, res) {
 /* CREATE church instance */
 exports.create = function (req, res) {
     var church;
-    console.log("POST: ");
+    console.log('POST: ');
     console.log(req.body);
     church = new Church({
         permalink: req.body.permalink,
@@ -33,11 +30,11 @@ exports.create = function (req, res) {
     });
     church.save(function (err) {
         if (!err) {
-            console.log("created");
+            console.log('created');
             return res.send(church);
         } else {
             console.log(err);
-            return res.send({'error':'An error has occurred - ' + err});
+            return res.send({'error': 'An error has occurred - ' + err});
         }
     });
 };
@@ -49,7 +46,7 @@ exports.findById = function (req, res) {
             return res.send(church);
         } else {
             console.log(err);
-            return res.send({'error':'An error has occurred - ' + err});
+            return res.send({'error': 'An error has occurred - ' + err});
         }
     });
 };
@@ -62,26 +59,26 @@ exports.update = function (req, res) {
         church.denomination = req.body.denomination;
         return church.save(function (err) {
             if (!err) {
-                console.log("updated");
+                console.log('updated');
                 return res.send(church);
             } else {
                 console.log(err);
-                res.send({'error':'An error has occurred - ' + err});
+                res.send({'error': 'An error has occurred - ' + err});
             }
         });
     });
 };
 
 /* DELETE single church by :id */
-exports.remove = function (req, res){
+exports.remove = function (req, res) {
     return Church.findById(req.params.id, function (err, church) {
         return church.remove(function (err) {
             if (!err) {
-                console.log("removed");
+                console.log('removed');
                 return res.send('');
             } else {
                 console.log(err);
-                res.send({'error':'An error has occurred - ' + err});
+                res.send({'error': 'An error has occurred - ' + err});
             }
         });
     });

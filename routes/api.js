@@ -24,7 +24,7 @@ var defineRestMethods = function(name, resource) {
 };
 
 defineRestMethods('sermons', sermons);
-router.patch("/sermons/:id", sermons.patch);
+router.patch('/sermons/:id', sermons.patch);
 
 defineRestMethods('speakers', speakers);
 defineRestMethods('churches', churches);
