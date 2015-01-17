@@ -11,13 +11,13 @@ var routes = require('./routes/index');
 var apiRoutes = require('./routes/api');
 
 // Database
-
-mongoose.connect('mongodb://localhost/sermoncast_database', function (err) {
+var databaseUri = 'mongodb://localhost/sermoncast_database';
+mongoose.connect(databaseUri, function (err) {
     if (err) {
-        console.error('db connection error', err);
+        console.error(databaseUri + 'connection error.', err);
         throw(err);
     } else {
-        console.log('db connection successful');
+        console.log(databaseUri + ' connected.');
     }
 });
 

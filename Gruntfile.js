@@ -1,9 +1,15 @@
 module.exports = function (grunt) {
     var paths = {
-        frontjs: ['public/javascripts/*.js', 'public/javascripts/**/*.js'],
-        backjs: ['routes/*.js', 'models/*.js', 'app.js'],
-        testjs: ['test/**/*.js'],
-        html: ['views/*.jade', 'public/**/*.html']
+        frontend: {
+            js: ['public/javascripts/*.js', 'public/javascripts/**/*.js'],
+            templates: ['public/**/*.html'],
+            tests: []
+        },
+        backend: {
+            js: ['routes/*.js', 'models/*.js', 'app.js'],
+            templates: ['views/*.jade'],
+            tests: ['test/**/*.js']
+        }
     };
 
     grunt.config.init({
@@ -15,19 +21,19 @@ module.exports = function (grunt) {
                 src: 'Gruntfile.js'
             },
             frontend: {
-                src: paths.frontjs
+                src: paths.frontend.js.concat(paths.frontend.tests)
             },
             backend: {
-                src: paths.backjs
+                src: paths.backend.js.concat(paths.backend.tests)
             },
             test: {
-                src: paths.testjs
+                src: paths.frontend.tests.concat(paths.backend.tests)
             }
         },
 
         nodemon: {
             options: {
-                watch: paths.backjs,
+                watch: paths.backend.js.concat(paths.backend.templates),
                 callback: function(nodemon) {
                     nodemon.on('log', function (event) {
                         console.log(event.colour)
@@ -48,15 +54,19 @@ module.exports = function (grunt) {
                 spawn: false
             },
             frontend: {
-                files: paths.frontjs.concat(paths.html).concat(['.rebooted']),
+                files: paths.frontend.js.concat(paths.frontend.templates).concat(['.rebooted']),
                 tasks: ['jshint:frontend'],
                 options: {
                     livereload: true
                 }
             },
             backend: {
-                files: paths.backjs,
+                files: paths.backend.js,
                 tasks: ['jshint:backend']
+            },
+            tests: {
+                files: paths.backend.tests,
+                tasks: ['jshint:backend', 'test']
             }
         },
 
@@ -68,8 +78,11 @@ module.exports = function (grunt) {
                 tasks: ['nodemon', 'watch:frontend', 'watch:backend']
             }
         }
+
+
     });
 
+    // load contrib tasks
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-contrib-watch');
