@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var debug = require('debug')('sermoncast-server');
+var debug = require('debug')('pocketsermons-server');
 var app = require('../server');
 
 app.set('port', process.env.PORT || 3000);

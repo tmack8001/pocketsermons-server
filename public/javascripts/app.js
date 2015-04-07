@@ -1,1 +1,1 @@
-angular.module('app', ['sermoncast']);
+angular.module('app', ['pocketsermons']);

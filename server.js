@@ -11,7 +11,7 @@ var routes = require('./routes/index');
 var apiRoutes = require('./routes/api');
 
 // Database
-var databaseUri = 'mongodb://localhost/sermoncast_database';
+var databaseUri = 'mongodb://localhost/pocketsermons_database';
 mongoose.connect(databaseUri, function (err) {
     if (err) {
         console.error(databaseUri + 'connection error.', err);

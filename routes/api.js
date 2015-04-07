@@ -10,7 +10,7 @@ var router = express.Router();
 
 /* GET API status page. */
 router.get('/', function (req, res) {
-    res.send('SermonCast API is running');
+    res.send('pocketsermons API is running');
 });
 
 var defineRestMethods = function(name, resource) {

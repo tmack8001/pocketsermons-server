@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'SermonCast Admin Interface' });
+  res.render('index', { title: 'pocketsermons Admin Interface' });
 });
 
 module.exports = router;

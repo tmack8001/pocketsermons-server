@@ -1,6 +1,6 @@
 {
-  "name": "sermoncast-server",
-  "description": "RESTful API for SermonCast an Android Application",
+  "name": "pocketsermons-server",
+  "description": "RESTful API for PocketSermons, an Android Application",
   "version": "0.0.1",
   "private": true,
   "homepage": "",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/tmack8001/sermoncast-server.git"
+    "url": "git://github.com/tmack8001/pocketsermons-server.git"
   },
   "scripts": {
     "start": "node ./bin/www"

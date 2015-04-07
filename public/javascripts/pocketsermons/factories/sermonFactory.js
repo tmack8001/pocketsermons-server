@@ -1,4 +1,4 @@
-angular.module('sermoncast')
+angular.module('pocketsermons')
     .factory('Sermons', ['$resource', function ($resource) {
         return $resource('/api/v1/sermons/:id', null, {
             'update': { method: 'PATCH' },

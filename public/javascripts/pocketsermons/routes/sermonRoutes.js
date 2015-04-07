@@ -1,4 +1,4 @@
-angular.module('sermoncast')
+angular.module('pocketsermons')
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/sermons', {

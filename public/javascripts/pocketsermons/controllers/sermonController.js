@@ -1,4 +1,4 @@
-angular.module('sermoncast')
+angular.module('pocketsermons')
     .controller('SermonController', ['$scope', 'Sermons', function ($scope, Sermons) {
         $scope.sermons = Sermons.query();
 
