@@ -1,4 +1,4 @@
-var Speaker = require('../models/speaker');
+var Speaker = require('../../models/speaker');
 
 /**
  permalink: { type: String, required: true, unique: true },

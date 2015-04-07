@@ -1,4 +1,4 @@
-var Sermon = require('../models/sermon');
+var Sermon = require('../../models/sermon');
 
 /**
  permalink: { type: String, required: true, unique: true },

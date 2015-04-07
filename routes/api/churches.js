@@ -1,41 +1,37 @@
-var Series = require('../models/series');
+var Church = require('../../models/church');
 
 /**
  permalink: { type: String, required: true, unique: true },
- church: {type: Schema.Types.ObjectId, ref: 'Church'},
- title: { type: String, required: true },
- description: { type: String },
- imageUri: { type: String, required: true },
+ name: { type: String, required: true },
+ denomination: { type: String },
  modified: { type: Date, default: Date.now }
  */
 
-/* GET series */
+/* GET churches */
 exports.findAll = function (req, res) {
-    return Series.find(function (err, series) {
+    return Church.find(function (err, churches) {
         if (!err) {
-            return res.send(series);
+            return res.send(churches);
         } else {
             return console.log(err);
         }
     });
 };
 
-/* CREATE series instance */
+/* CREATE church instance */
 exports.create = function (req, res) {
-    var series;
+    var church;
     console.log('POST: ');
     console.log(req.body);
-    series = new Series({
+    church = new Church({
         permalink: req.body.permalink,
-        church: req.body.church,
-        title: req.body.title,
-        description: req.body.description,
-        imageUri: req.body.imageUri
+        name: req.body.name,
+        denomination: req.body.denomination
     });
-    series.save(function (err) {
+    church.save(function (err) {
         if (!err) {
             console.log('created');
-            return res.send(series);
+            return res.send(church);
         } else {
             console.log(err);
             return res.send({'error': 'An error has occurred - ' + err});
@@ -43,11 +39,11 @@ exports.create = function (req, res) {
     });
 };
 
-/* GET single series by :id */
+/* GET single church by :id */
 exports.findById = function (req, res) {
-    return Series.findById(req.params.id, function (err, series) {
+    return Church.findById(req.params.id, function (err, church) {
         if (!err) {
-            return res.send(series);
+            return res.send(church);
         } else {
             console.log(err);
             return res.send({'error': 'An error has occurred - ' + err});
@@ -55,18 +51,16 @@ exports.findById = function (req, res) {
     });
 };
 
-/* UPDATE single series by :id */
+/* UPDATE single church by :id */
 exports.update = function (req, res) {
-    return Series.findById(req.params.id, function (err, series) {
-        series.permalink = req.body.permalink;
-        series.church = req.body.church;
-        series.title = req.body.givenName;
-        series.description = req.body.familyName;
-        series.imageUri = req.body.imageUri;
-        return series.save(function (err) {
+    return Church.findById(req.params.id, function (err, church) {
+        church.permalink = req.body.permalink;
+        church.name = req.body.name;
+        church.denomination = req.body.denomination;
+        return church.save(function (err) {
             if (!err) {
                 console.log('updated');
-                return res.send(series);
+                return res.send(church);
             } else {
                 console.log(err);
                 res.send({'error': 'An error has occurred - ' + err});
@@ -75,10 +69,10 @@ exports.update = function (req, res) {
     });
 };
 
-/* DELETE single series by :id */
+/* DELETE single church by :id */
 exports.remove = function (req, res) {
-    return Series.findById(req.params.id, function (err, series) {
-        return series.remove(function (err) {
+    return Church.findById(req.params.id, function (err, church) {
+        return church.remove(function (err) {
             if (!err) {
                 console.log('removed');
                 return res.send('');

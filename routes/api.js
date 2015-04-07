@@ -1,10 +1,10 @@
 var express = require('express');
 
 // api routes
-var sermons = require('./sermons');
-var series = require('./series');
-var churches = require('./churches');
-var speakers = require('./speakers');
+var sermons = require('./api/sermons');
+var series = require('./api/series');
+var churches = require('./api/churches');
+var speakers = require('./api/speakers');
 
 var router = express.Router();
 
