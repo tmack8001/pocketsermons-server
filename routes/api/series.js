@@ -60,8 +60,8 @@ exports.update = function (req, res) {
     return Series.findById(req.params.id, function (err, series) {
         series.permalink = req.body.permalink;
         series.church = req.body.church;
-        series.title = req.body.givenName;
-        series.description = req.body.familyName;
+        series.title = req.body.title;
+        series.description = req.body.description;
         series.imageUri = req.body.imageUri;
         return series.save(function (err) {
             if (!err) {
