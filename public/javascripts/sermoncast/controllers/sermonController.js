@@ -15,7 +15,9 @@ angular.module('sermoncast')
     }])
 
     .controller('SermonDetailCtrl', ['$scope', '$routeParams', 'Sermons', '$location', function ($scope, $routeParams, Sermons, $location) {
-        $scope.sermon = Sermons.get({id: $routeParams.id});
+        Sermons.get({id: $routeParams.id}, function(response) {
+            $scope.sermon = response.sermon;
+        });
         $scope.editing = false;
 
         $scope.update = function(){

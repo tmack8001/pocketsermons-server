@@ -16,7 +16,7 @@ var Sermon = require('../models/sermon');
 exports.findAll = function (req, res) {
     return Sermon.find(function (err, sermons) {
         if (!err) {
-            return res.send(sermons);
+            return res.send({'sermons': sermons});
         } else {
             return console.log(err);
         }
@@ -41,7 +41,7 @@ exports.create = function (req, res) {
     sermon.save(function (err) {
         if (!err) {
             console.log('created');
-            return res.send(sermon);
+            return res.send({'sermon': sermon});
         } else {
             console.log(err);
             return res.send({'error': 'An error has occurred - ' + err});
@@ -53,7 +53,7 @@ exports.create = function (req, res) {
 exports.findById = function (req, res) {
     return Sermon.findById(req.params.id, function (err, sermon) {
         if (!err) {
-            res.send(sermon);
+            res.send({'sermon': sermon});
         } else {
             console.log(err);
             res.send({'error': 'An error has occurred - ' + err});
@@ -75,7 +75,7 @@ exports.update = function (req, res) {
         return sermon.save(function (err) {
             if (!err) {
                 console.log('updated');
-                res.send(sermon);
+                res.send({'sermon': sermon});
             } else {
                 console.log(err);
                 res.send({'error': 'An error has occurred - ' + err});
@@ -107,7 +107,7 @@ exports.patch = function (req, res) {
         return sermon.save(function (err) {
             if (!err) {
                 console.log('updated');
-                res.send(sermon);
+                res.send({'sermon': sermon});
             } else {
                 console.log(err);
                 res.send({'error': 'An error has occurred - ' + err});

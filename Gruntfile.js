@@ -36,7 +36,7 @@ module.exports = function (grunt) {
                 watch: paths.backend.js.concat(paths.backend.templates),
                 callback: function(nodemon) {
                     nodemon.on('log', function (event) {
-                        console.log(event.colour)
+                        console.log(event.colour);
                     });
 
                     nodemon.on('restart', function() {

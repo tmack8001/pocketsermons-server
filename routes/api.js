@@ -14,7 +14,7 @@ router.get('/', function (req, res) {
 });
 
 var defineRestMethods = function(name, resource) {
-    var path = '/' + name;
+    var path = '/v1/' + name;
     var pathById = path + '/:id';
     router.get(path, resource.findAll);
     router.post(path, resource.create);
@@ -24,7 +24,7 @@ var defineRestMethods = function(name, resource) {
 };
 
 defineRestMethods('sermons', sermons);
-router.patch('/sermons/:id', sermons.patch);
+router.patch('/v1/sermons/:id', sermons.patch);
 
 defineRestMethods('speakers', speakers);
 defineRestMethods('churches', churches);
