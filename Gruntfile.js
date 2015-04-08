@@ -1,13 +1,13 @@
 module.exports = function (grunt) {
     var paths = {
         frontend: {
-            js: ['public/javascripts/*.js', 'public/javascripts/**/*.js'],
+            js: ['public/javascripts/**/*.js'],
             templates: ['public/**/*.html'],
             tests: []
         },
         backend: {
-            js: ['routes/*.js', 'models/*.js', 'app.js'],
-            templates: ['views/*.jade'],
+            js: ['routes/**/*.js', 'models/**/*.js', 'app.js'],
+            templates: ['views/**/*.jade'],
             tests: ['test/**/*.js']
         }
     };
