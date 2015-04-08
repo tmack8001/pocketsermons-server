@@ -11,7 +11,7 @@ var Church = require('../../models/church');
 exports.findAll = function (req, res) {
     return Church.find(function (err, churches) {
         if (!err) {
-            return res.send(churches);
+            return res.send({'churches': churches});
         } else {
             return console.log(err);
         }
@@ -31,7 +31,7 @@ exports.create = function (req, res) {
     church.save(function (err) {
         if (!err) {
             console.log('created');
-            return res.send(church);
+            return res.send({'church': church});
         } else {
             console.log(err);
             return res.send({'error': 'An error has occurred - ' + err});
@@ -43,7 +43,7 @@ exports.create = function (req, res) {
 exports.findById = function (req, res) {
     return Church.findById(req.params.id, function (err, church) {
         if (!err) {
-            return res.send(church);
+            return res.send({'church': church});
         } else {
             console.log(err);
             return res.send({'error': 'An error has occurred - ' + err});
@@ -60,7 +60,7 @@ exports.update = function (req, res) {
         return church.save(function (err) {
             if (!err) {
                 console.log('updated');
-                return res.send(church);
+                return res.send({'church': church});
             } else {
                 console.log(err);
                 res.send({'error': 'An error has occurred - ' + err});

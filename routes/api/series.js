@@ -13,7 +13,7 @@ var Series = require('../../models/series');
 exports.findAll = function (req, res) {
     return Series.find(function (err, series) {
         if (!err) {
-            return res.send(series);
+            return res.send({'series': series});
         } else {
             return console.log(err);
         }
@@ -35,7 +35,7 @@ exports.create = function (req, res) {
     series.save(function (err) {
         if (!err) {
             console.log('created');
-            return res.send(series);
+            return res.send({'series': series});
         } else {
             console.log(err);
             return res.send({'error': 'An error has occurred - ' + err});
@@ -47,7 +47,7 @@ exports.create = function (req, res) {
 exports.findById = function (req, res) {
     return Series.findById(req.params.id, function (err, series) {
         if (!err) {
-            return res.send(series);
+            return res.send({'series': series});
         } else {
             console.log(err);
             return res.send({'error': 'An error has occurred - ' + err});
@@ -66,7 +66,7 @@ exports.update = function (req, res) {
         return series.save(function (err) {
             if (!err) {
                 console.log('updated');
-                return res.send(series);
+                return res.send({'series': series});
             } else {
                 console.log(err);
                 res.send({'error': 'An error has occurred - ' + err});
