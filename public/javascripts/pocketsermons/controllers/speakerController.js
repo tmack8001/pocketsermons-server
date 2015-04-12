@@ -3,7 +3,7 @@ angular.module('pocketsermons')
         $scope.speakers = Speakers.query();
 
         $scope.save = function () {
-            console.log($scope.newSpeaker.split(' ').length !== 2);
+            // verify that speaker name was provided and contains exactly 1 space (simple verification of "firstName lastName" format
             if (!$scope.newSpeaker || $scope.newSpeaker.length < 1 ||
                 $scope.newSpeaker.split(' ').length !== 2) return;
 
