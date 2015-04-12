@@ -13,19 +13,24 @@ block content
     include ../public/javascripts/templates/churchDetails.html
     include ../public/javascripts/templates/speakers.html
     include ../public/javascripts/templates/speakerDetails.html
+    include ../public/javascripts/templates/series.html
+    include ../public/javascripts/templates/seriesDetails.html
 
     // Main AngularJS App
     script(src='/javascripts/app.js')
     script(src='/javascripts/pocketsermons/pocketsermons.js')
-    script(src='/javascripts/pocketsermons/controllers/sermonController.js')
-    script(src='/javascripts/pocketsermons/factories/sermonFactory.js')
     script(src='/javascripts/pocketsermons/routes/sermonRoutes.js')
-    script(src='/javascripts/pocketsermons/controllers/churchController.js')
-    script(src='/javascripts/pocketsermons/factories/churchFactory.js')
+    script(src='/javascripts/pocketsermons/factories/sermonFactory.js')
+    script(src='/javascripts/pocketsermons/controllers/sermonController.js')
     script(src='/javascripts/pocketsermons/routes/churchRoutes.js')
-    script(src='/javascripts/pocketsermons/controllers/speakerController.js')
-    script(src='/javascripts/pocketsermons/factories/speakerFactory.js')
+    script(src='/javascripts/pocketsermons/factories/churchFactory.js')
+    script(src='/javascripts/pocketsermons/controllers/churchController.js')
     script(src='/javascripts/pocketsermons/routes/speakerRoutes.js')
+    script(src='/javascripts/pocketsermons/factories/speakerFactory.js')
+    script(src='/javascripts/pocketsermons/controllers/speakerController.js')
+    script(src='/javascripts/pocketsermons/routes/seriesRoutes.js')
+    script(src='/javascripts/pocketsermons/factories/seriesFactory.js')
+    script(src='/javascripts/pocketsermons/controllers/seriesController.js')
 
     h1= title
 

@@ -1,0 +1,40 @@
+<script type="text/ng-template" id="/seriesDetails.html">
+    <button ng-show="!editing" ng-click="edit()">edit</button>
+    <button ng-show="!editing" ng-click="remove()">remove</button>
+
+    <!-- editing text fields and update/cancel buttons -->
+    <section ng-show="editing">
+        permalink: <input ng-show="editing" type="text" ng-model="series.permalink"> <br />
+        title: <input ng-show="editing" type="text" ng-model="series.title"> <br />
+        description: <input ng-show="editing" type="text" ng-model="series.description"> <br />
+
+        <br />
+
+        <h4>Church</h4>
+
+        id reference: <input ng-show="editing" ng-model="series.church._id"> <br />
+
+        <br />
+
+        <h4>Images</h4>
+
+        <img src="{{series.imageUri}}"/> <br />
+        imageUri: <input ng-show="editing" ng-model="series.imageUri"> <br />
+
+        <br /><br />
+
+        <button ng-show="editing" ng-click="update()">update</button>
+        <button ng-show="editing" ng-click="remove()">remove</button>
+        <button ng-show="editing" ng-click="cancel()">cancel</button>
+    </section>
+
+    <!-- viewing series information -->
+    <article ng-show="!editing">
+        <header>
+            <h1>{{series.title}}</h1>
+            <img src="{{series.imageUri}}"/>
+            <h4>{{series.description}}</h4>
+            <h4>at {{series.church.title}}</h4>
+        </header>
+    </article>
+</script>

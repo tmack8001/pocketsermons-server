@@ -1,0 +1,9 @@
+<script type="text/ng-template" id="/series.html">
+    Search: <input type="text" ng-model="search.title">
+    <ul>
+        <li ng-repeat="item in series | filter: search">
+            <a href="#/series/{{item._id}}">{{item.title}}</a>
+        </li>
+    </ul>
+    New Series <input type="text" ng-model="newSeries"><button ng-click="save()">Create</button>
+</script>
