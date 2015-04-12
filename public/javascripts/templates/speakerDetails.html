@@ -1,0 +1,34 @@
+<script type="text/ng-template" id="/speakerDetails.html">
+    <button ng-show="!editing" ng-click="edit()">edit</button>
+    <button ng-show="!editing" ng-click="remove()">remove</button>
+
+    <!-- editing text fields and update/cancel buttons -->
+    <section ng-show="editing">
+        permalink: <input ng-show="editing" type="text" ng-model="speaker.permalink"> <br />
+        given name (i.e. first name): <input ng-show="editing" type="text" ng-model="speaker.givenName"> <br />
+        family name (i.e. last name): <input ng-show="editing" ng-model="speaker.familyName"> <br />
+        prefix: <input ng-show="editing" type="text" ng-model="speaker.honorificPrefix"> <br />
+        suffix: <input ng-show="editing" ng-model="speaker.honorificSuffix"> <br />
+
+        <br />
+
+        <h4>Organizational Affiliation</h4>
+        name: <input ng-show="editing" type="text" ng-model="speaker.affiliation.name"> <br />
+        role: <input ng-show="editing" ng-model="speaker.affiliation.role"> <br />
+
+        <br /><br />
+
+        <button ng-show="editing" ng-click="update()">update</button>
+        <button ng-show="editing" ng-click="remove()">remove</button>
+        <button ng-show="editing" ng-click="cancel()">cancel</button>
+    </section>
+
+    <!-- viewing speaker information -->
+    <article ng-show="!editing">
+        <header>
+            <h1>{{speaker.givenName}} {{speaker.familyName}}</h1>
+            <!--<h1>{{speaker.fullName}}</h1>-->
+            <h4>{{speaker.affiliation.role}} at {{speaker.affiliation.name}}</h4>
+        </header>
+    </article>
+</script>

@@ -1,0 +1,10 @@
+<script type="text/ng-template" id="/speakers.html">
+    Search: <input type="text" ng-model="search.name">
+    <ul>
+        <li ng-repeat="speaker in speakers | filter: search">
+            <!-- figure out how to get fullName (push logic to API?) -->
+            <a href="#/speakers/{{speaker._id}}">{{speaker.givenName}} {{speaker.familyName}}</a>
+        </li>
+    </ul>
+    New Speaker <input type="text" ng-model="newSpeaker"><button ng-click="save()">Create</button>
+</script>

@@ -11,6 +11,8 @@ block content
     include ../public/javascripts/templates/sermonDetails.html
     include ../public/javascripts/templates/churches.html
     include ../public/javascripts/templates/churchDetails.html
+    include ../public/javascripts/templates/speakers.html
+    include ../public/javascripts/templates/speakerDetails.html
 
     // Main AngularJS App
     script(src='/javascripts/app.js')
@@ -21,6 +23,9 @@ block content
     script(src='/javascripts/pocketsermons/controllers/churchController.js')
     script(src='/javascripts/pocketsermons/factories/churchFactory.js')
     script(src='/javascripts/pocketsermons/routes/churchRoutes.js')
+    script(src='/javascripts/pocketsermons/controllers/speakerController.js')
+    script(src='/javascripts/pocketsermons/factories/speakerFactory.js')
+    script(src='/javascripts/pocketsermons/routes/speakerRoutes.js')
 
     h1= title
 
