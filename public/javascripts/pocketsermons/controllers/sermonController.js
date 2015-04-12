@@ -5,10 +5,10 @@ angular.module('pocketsermons')
         // TODO: need to figure out how to create a new Sermon fully since API requires various conditions to be met
         $scope.save = function () {
             if (!$scope.newSermon || $scope.newSermon.length < 1) return;
-            var sermon = new Sermons({ title: $scope.newSermon, completed: false });
+            var object = new Sermons({ title: $scope.newSermon, completed: false });
 
-            sermon.$save(function () {
-                $scope.sermons.push(sermon);
+            object.$save(function () {
+                $scope.sermons.push(object.sermon);
                 $scope.newSermon = ''; // clear textbox
             });
         };
