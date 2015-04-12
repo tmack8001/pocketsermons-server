@@ -7,7 +7,7 @@ var SeriesSchema = new Schema({
     church: {type: Schema.Types.ObjectId, ref: 'Church'},
     title: { type: String, required: true },
     description: { type: String },
-    imageUri: { type: String, required: true },
+    imageUri: { type: String },
     modified: { type: Date, default: Date.now }
 });
 
