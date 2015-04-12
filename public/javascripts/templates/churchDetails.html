@@ -1,0 +1,25 @@
+<script type="text/ng-template" id="/churchDetails.html">
+    <button ng-show="!editing" ng-click="edit()">edit</button>
+    <button ng-show="!editing" ng-click="remove()">remove</button>
+
+    <!-- editing text fields and update/cancel buttons -->
+    <section ng-show="editing">
+        permalink: <input ng-show="editing" type="text" ng-model="church.permalink"> <br />
+        name: <input ng-show="editing" type="text" ng-model="church.name"> <br />
+        denomination <input ng-show="editing" ng-model="church.denomination"> <br />
+
+        <br /><br />
+
+        <button ng-show="editing" ng-click="update()">update</button>
+        <button ng-show="editing" ng-click="remove()">remove</button>
+        <button ng-show="editing" ng-click="cancel()">cancel</button>
+    </section>
+
+    <!-- viewing church information -->
+    <article ng-show="!editing">
+        <header>
+            <h1>{{church.name}}</h1>
+            <h4>{{church.denomination}}</h4>
+        </header>
+    </article>
+</script>

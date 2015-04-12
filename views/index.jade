@@ -9,6 +9,8 @@ block content
     // Angular Templates
     include ../public/javascripts/templates/sermons.html
     include ../public/javascripts/templates/sermonDetails.html
+    include ../public/javascripts/templates/churches.html
+    include ../public/javascripts/templates/churchDetails.html
 
     // Main AngularJS App
     script(src='/javascripts/app.js')
@@ -16,6 +18,9 @@ block content
     script(src='/javascripts/pocketsermons/controllers/sermonController.js')
     script(src='/javascripts/pocketsermons/factories/sermonFactory.js')
     script(src='/javascripts/pocketsermons/routes/sermonRoutes.js')
+    script(src='/javascripts/pocketsermons/controllers/churchController.js')
+    script(src='/javascripts/pocketsermons/factories/churchFactory.js')
+    script(src='/javascripts/pocketsermons/routes/churchRoutes.js')
 
     h1= title
 

@@ -1,0 +1,9 @@
+<script type="text/ng-template" id="/churches.html">
+    Search: <input type="text" ng-model="search.name">
+    <ul>
+        <li ng-repeat="church in churches | filter: search">
+            <a href="#/churches/{{church._id}}">{{church.name}}</a>
+        </li>
+    </ul>
+    New Church <input type="text" ng-model="newChurch"><button ng-click="save()">Create</button>
+</script>
