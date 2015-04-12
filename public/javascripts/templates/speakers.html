@@ -1,5 +1,5 @@
 <script type="text/ng-template" id="/speakers.html">
-    Search: <input type="text" ng-model="search.name">
+    Search: <input type="text" ng-model="search.givenName">
     <ul>
         <li ng-repeat="speaker in speakers | filter: search">
             <!-- figure out how to get fullName (push logic to API?) -->
