@@ -6,5 +6,5 @@
             <a href="#/speakers/{{speaker._id}}">{{speaker.givenName}} {{speaker.familyName}}</a>
         </li>
     </ul>
-    New Speaker <input type="text" ng-model="newSpeaker"><button ng-click="save()">Create</button>
+    <input type="text" ng-model="newSpeaker" placeholder="Enter Speaker Name (i.e. first last)" required><button ng-click="save()">Create</button>
 </script>

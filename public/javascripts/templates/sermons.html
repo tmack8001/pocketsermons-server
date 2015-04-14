@@ -1,9 +1,9 @@
 <script type="text/ng-template" id="/sermons.html">
-    Search: <input type="text" ng-model="search.title">
+    Search: <input type="text" ng-model="search.title" autofocus>
     <ul>
         <li ng-repeat="sermon in sermons | filter: search">
             <a href="#/sermons/{{sermon._id}}">{{sermon.title}}</a>
         </li>
     </ul>
-    New Sermon <input type="text" ng-model="newSermon"><button ng-click="save()">Create</button>
+    <input type="text" ng-model="newSermon" placeholder="Enter Sermon Title" required><button ng-click="save()">Create</button>
 </script>
