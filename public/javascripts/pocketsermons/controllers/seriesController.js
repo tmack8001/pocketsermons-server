@@ -26,6 +26,9 @@ angular.module('pocketsermons')
         $scope.update = function(){
             var series = $scope.series;
 
+            // breakdown ObjectId references
+            series.church = series.church._id;
+
             Series.update({id: series._id}, series);
             $scope.editing = false;
         };
