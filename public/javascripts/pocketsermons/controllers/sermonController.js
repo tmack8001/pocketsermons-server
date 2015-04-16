@@ -2,7 +2,6 @@ angular.module('pocketsermons')
     .controller('SermonController', ['$scope', 'Sermons', '$location', function ($scope, Sermons, $location) {
         $scope.sermons = Sermons.query();
 
-        // TODO: need to figure out how to create a new Sermon fully since API requires various conditions to be met
         $scope.save = function () {
             if (!$scope.newSermon || $scope.newSermon.length < 1) return;
             $location.url('/sermons/new?title=' + $scope.newSermon + '&permalink=' + $scope.newSermon.replace(' ', '-').toLowerCase());
@@ -32,7 +31,7 @@ angular.module('pocketsermons')
                 permalink: $scope.sermon.permalink,
                 title: $scope.sermon.title,
                 date: $scope.sermon.date,
-                description: $scope.sermon.description,
+                description: $scope.sermon.description || '',
                 videoUri: $scope.sermon.videoUri,
                 series: $scope.sermon.series._id,
                 church: $scope.sermon.church._id,
@@ -49,6 +48,7 @@ angular.module('pocketsermons')
         $scope.update = function(){
             var sermon = $scope.sermon;
 
+            sermon.description =  sermon.description || '';
             sermon.series = sermon.series._id;
             sermon.church = sermon.church._id;
             var speakers = [].map.call(sermon.speakers, function(obj) {

@@ -91,7 +91,7 @@ exports.patch = function (req, res) {
             sermon.permalink = req.body.permalink;
         if (req.body.title)
             sermon.title = req.body.title;
-        if (req.body.description)
+        if (req.body.description !== null)
             sermon.description = req.body.description;
         if (req.body.videoUri)
             sermon.videoUri = req.body.videoUri;
