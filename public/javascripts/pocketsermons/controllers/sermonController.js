@@ -24,8 +24,6 @@ angular.module('pocketsermons')
         }
 
         $scope.save = function () {
-            console.log('saving new sermon');
-            console.log($scope.sermon);
             // verify required info
             if (!$scope.sermon || !$scope.sermon.permalink ||
             !$scope.sermon.title || !$scope.sermon.date || !$scope.sermon.videoUri) return;
@@ -38,9 +36,10 @@ angular.module('pocketsermons')
                 videoUri: $scope.sermon.videoUri,
                 series: $scope.sermon.series._id,
                 church: $scope.sermon.church._id,
+                speakers: [$scope.new_speaker_id],
                 completed: false
             });
-            console.log(object);
+
             object.$save(function () {
                 $scope.newSermon = ''; // clear textbox
                 $location.url('/sermons');
@@ -50,16 +49,30 @@ angular.module('pocketsermons')
         $scope.update = function(){
             var sermon = $scope.sermon;
 
-            console.log(sermon);
-
             sermon.series = sermon.series._id;
             sermon.church = sermon.church._id;
-            sermon.speakers = [].map.call(sermon.speakers, function(obj) {
+            var speakers = [].map.call(sermon.speakers, function(obj) {
                 return obj._id;
+            });
+
+            // add new speaker
+            if ($scope.new_speaker_id) {
+                speakers = speakers || [];
+                speakers.push($scope.new_speaker_id);
+            }
+
+            // dedupe list of speakers
+            sermon.speakers = speakers.filter(function(item, pos) {
+                return speakers.indexOf(item) === pos;
             });
 
             Sermons.update({id: sermon._id}, sermon);
             $scope.editing = false;
+        };
+
+        $scope.removeSpeaker = function(speaker) {
+            var index = $scope.sermon.speakers.indexOf(speaker);
+            $scope.sermon.speakers.splice(index, 1);
         };
 
         $scope.edit = function() {

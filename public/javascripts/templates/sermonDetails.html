@@ -12,14 +12,12 @@
 
         series: <input ng-show="editing" type="text" ng-model="sermon.series._id"> <br />
         church: <input ng-show="editing" type="text" ng-model="sermon.church._id"> <br />
-        speakers: <ul id="speakers">
-            <li ng-repeat="speaker in sermon.speakers">
-                <input ng-show="editing" type="text" ng-model="speaker._id">
-            </li>
+        speakers: <ul ng-repeat="speaker in sermon.speakers">
             <li>
-                <input ng-show="editing" type="text" ng-model="speaker._id" class="ng-pristine ng-valid">
+                <input ng-show="editing" type="text" ng-model="speaker._id"> <button ng-click="removeSpeaker(speaker)">delete</button>
             </li>
         </ul>
+        <input ng-show="editing" type="text" ng-model="new_speaker_id" placeholder="add speaker" class="ng-pristine ng-valid">
 
         <br /><br />
 
@@ -35,7 +33,7 @@
             <h1>{{sermon.title}}</h1>
             <h4>{{sermon.series.title}}</h4>
             Date: <time pubdate="pubdate" datetime="{{sermon.date}}">{{sermon.date}}</time> <br />
-            Speakers: <ul id="speakers">
+            Speakers: <ul>
                 <li ng-repeat="speaker in sermon.speakers">
                     <a href="#/speakers/{{speaker._id}}">{{speaker.givenName}} {{speaker.familyName}}</a>
                 </li>
