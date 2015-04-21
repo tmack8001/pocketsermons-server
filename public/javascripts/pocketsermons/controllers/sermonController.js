@@ -39,6 +39,10 @@ angular.module('pocketsermons')
                 completed: false
             });
 
+            console.log('after manipulating ');
+            console.log(sermon);
+
+
             object.$save(function () {
                 $scope.newSermon = ''; // clear textbox
                 $location.url('/sermons');
@@ -47,7 +51,8 @@ angular.module('pocketsermons')
 
         $scope.update = function(){
             var sermon = $scope.sermon;
-
+            console.log('posted');
+            console.log(sermon);
             sermon.description =  sermon.description || '';
             sermon.series = sermon.series._id;
             sermon.church = sermon.church._id;
@@ -65,6 +70,9 @@ angular.module('pocketsermons')
             sermon.speakers = speakers.filter(function(item, pos) {
                 return speakers.indexOf(item) === pos;
             });
+
+            console.log('after manipulating');
+            console.log(sermon);
 
             Sermons.update({id: sermon._id}, sermon);
             $scope.editing = false;

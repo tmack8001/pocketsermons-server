@@ -64,6 +64,8 @@ exports.findById = function (req, res) {
 /* UPDATE single sermon by :id */
 exports.update = function (req, res) {
     return Sermon.findById(req.params.id, function (err, sermon) {
+        console.log('PUT: ');
+        console.log(req.body);
         sermon.permalink = req.body.permalink;
         sermon.title = req.body.title;
         sermon.description = req.body.description;
@@ -89,6 +91,8 @@ exports.update = function (req, res) {
 /* PATCH single sermon by :id */
 exports.patch = function (req, res) {
     return Sermon.findById(req.params.id, function (err, sermon) {
+        console.log('PATCH: ');
+        console.log(req.body);
         if (req.body.permalink)
             sermon.permalink = req.body.permalink;
         if (req.body.title)
@@ -108,6 +112,8 @@ exports.patch = function (req, res) {
             sermon.series = req.body.series;
         // update modified date
         sermon.modified = Date.now();
+        console.log('data to save:');
+        console.log(sermon);
         return sermon.save(function (err) {
             if (!err) {
                 res.send({'sermon': sermon});
