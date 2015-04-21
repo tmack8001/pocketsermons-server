@@ -63,6 +63,8 @@ exports.update = function (req, res) {
         series.title = req.body.title;
         series.description = req.body.description;
         series.imageUri = req.body.imageUri;
+        // update modified date
+        series.modified = Date.now();
         return series.save(function (err) {
             if (!err) {
                 console.log('updated');

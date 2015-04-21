@@ -69,6 +69,8 @@ exports.update = function (req, res) {
         speaker.honorificPrefix = req.body.honorificPrefix;
         speaker.honorificSuffix = req.body.honorificSuffix;
         speaker.affiliation = req.body.affiliation;
+        // update modified date
+        speaker.modified = Date.now();
         return speaker.save(function (err) {
             if (!err) {
                 console.log('updated');

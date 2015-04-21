@@ -72,6 +72,8 @@ exports.update = function (req, res) {
         sermon.speakers = req.body.speakers;
         sermon.church = req.body.church;
         sermon.series = req.body.series;
+        // update modified date
+        sermon.modified = Date.now();
         return sermon.save(function (err) {
             if (!err) {
                 console.log('updated');
@@ -104,9 +106,10 @@ exports.patch = function (req, res) {
             sermon.church = req.body.church;
         if (req.body.series)
             sermon.series = req.body.series;
+        // update modified date
+        sermon.modified = Date.now();
         return sermon.save(function (err) {
             if (!err) {
-                console.log('updated');
                 res.send({'sermon': sermon});
             } else {
                 console.log(err);

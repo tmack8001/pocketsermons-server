@@ -57,6 +57,8 @@ exports.update = function (req, res) {
         church.permalink = req.body.permalink;
         church.name = req.body.name;
         church.denomination = req.body.denomination;
+        // update modified date
+        church.modified = Date.now();
         return church.save(function (err) {
             if (!err) {
                 console.log('updated');
