@@ -14,13 +14,15 @@ var Sermon = require('../../models/sermon');
 
 /* GET sermons */
 exports.findAll = function (req, res) {
-    return Sermon.find(function (err, sermons) {
-        if (!err) {
-            return res.send({'sermons': sermons});
-        } else {
-            return console.log(err);
-        }
-    }).populate('church series speakers');
+    return Sermon.find().sort({date: 'desc'})
+        .populate('church series speakers')
+        .exec(function (err, sermons) {
+            if (!err) {
+                return res.send({'sermons': sermons});
+            } else {
+                return console.log(err);
+            }
+        });
 };
 
 /* CREATE sermon instance */
