@@ -8,18 +8,33 @@ angular.module('pocketsermons')
         };
     }])
 
-    .controller('SermonDetailCtrl', ['$scope', '$routeParams', 'Sermons', '$location', function ($scope, $routeParams, Sermons, $location) {
-        if ($routeParams.id === 'new') {
-            var sermon = { title: $routeParams.title, permalink: $routeParams.permalink};
-            $scope.sermon = sermon;
-            $scope.new = true;
-            $scope.editing = true;
-        } else {
-            Sermons.get({id: $routeParams.id}, function(response) {
-                $scope.sermon = response.sermon;
-            });
-            $scope.editing = false;
-            $scope.new = false;
+    .controller('SermonDetailCtrl', ['$scope', '$routeParams', 'Sermons', '$location', '$timeout', '$q', '$http', function ($scope, $routeParams, Sermons, $location, $timeout, $q, $http) {
+
+        if (!$scope.sermon) {
+            if ($routeParams.id === 'new') {
+                $scope.sermon = {title: $routeParams.title, permalink: $routeParams.permalink, speakers: []};
+                $scope.new = true;
+                $scope.editing = true;
+            } else {
+                Sermons.get({id: $routeParams.id}, function (response) {
+                    $scope.sermon = response.sermon;
+                    if ($scope.sermon.speakers) {
+                        // TODO: remove after adding name, email, image to the API
+                        $scope.sermon.speakers = $scope.sermon.speakers.map(function (c, index) {
+                            var contact = {
+                                _id: c._id,
+                                name: c.givenName + ' ' + c.familyName,
+                                email: c.givenName.toLowerCase() + '.' + c.familyName.toLowerCase() + '@example.com', // TODO: replace with email
+                                image: 'http://lorempixel.com/50/50/people?' + c._id // TODO: replace with profile picture
+                            };
+                            contact._lowername = contact.name.toLowerCase();
+                            return contact;
+                        });
+                    }
+                });
+                $scope.editing = true;
+                $scope.new = false;
+            }
         }
 
         $scope.save = function () {
@@ -35,13 +50,11 @@ angular.module('pocketsermons')
                 videoUri: $scope.sermon.videoUri,
                 series: $scope.sermon.series._id,
                 church: $scope.sermon.church._id,
-                speakers: [$scope.new_speaker_id],
+                speakers: $scope.sermon.speakers.map(function(c, index) {
+                    return c._id;
+                }),
                 completed: false
             });
-
-            console.log('after manipulating ');
-            console.log(sermon);
-
 
             object.$save(function () {
                 $scope.newSermon = ''; // clear textbox
@@ -51,36 +64,15 @@ angular.module('pocketsermons')
 
         $scope.update = function(){
             var sermon = $scope.sermon;
-            console.log('posted');
-            console.log(sermon);
             sermon.description =  sermon.description || '';
             sermon.series = sermon.series._id;
             sermon.church = sermon.church._id;
-            var speakers = [].map.call(sermon.speakers, function(obj) {
-                return obj._id;
+            sermon.speakers = sermon.speakers.map(function(c, index) {
+                return c._id;
             });
-
-            // add new speaker
-            if ($scope.new_speaker_id) {
-                speakers = speakers || [];
-                speakers.push($scope.new_speaker_id);
-            }
-
-            // dedupe list of speakers
-            sermon.speakers = speakers.filter(function(item, pos) {
-                return speakers.indexOf(item) === pos;
-            });
-
-            console.log('after manipulating');
-            console.log(sermon);
 
             Sermons.update({id: sermon._id}, sermon);
             $scope.editing = false;
-        };
-
-        $scope.removeSpeaker = function(speaker) {
-            var index = $scope.sermon.speakers.indexOf(speaker);
-            $scope.sermon.speakers.splice(index, 1);
         };
 
         $scope.edit = function() {
@@ -98,4 +90,54 @@ angular.module('pocketsermons')
             $scope.sermon = angular.copy($scope.editing);
             $scope.editing = false;
         };
+
+        /**
+         * Search for contacts.
+         */
+        $scope.querySearch = function(query) {
+            var results = query ?
+                $scope.allContacts.filter(createFilterFor(query)) : [];
+            return results;
+        };
+
+        $scope.filterSelected = true;
+
+        /**
+         * Create filter function for a query string
+         */
+        function createFilterFor(query) {
+            var lowercaseQuery = angular.lowercase(query);
+            return function filterFn(contact) {
+                return (contact._lowername.indexOf(lowercaseQuery) !== -1);
+            };
+        }
+
+        function loadContacts(callback) {
+            $http.get('/api/v1/speakers').
+                success(function (data, status, headers, config) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    var speakers = data.speakers || [];
+                    callback(speakers.map(function (c, index) {
+                        var contact = {
+                            _id: c._id,
+                            name: c.givenName + ' ' + c.familyName,
+                            email: c.givenName.toLowerCase() + '.' + c.familyName.toLowerCase() + '@example.com', // TODO: replace with email
+                            image: 'http://lorempixel.com/50/50/people?' + c._id // TODO: replace with profile picture
+                        };
+                        contact._lowername = contact.name.toLowerCase();
+                        return contact;
+                    }));
+                }).
+                error(function (data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    console.log('error:' + data);
+                    return [];
+                });
+        }
+
+        loadContacts(function (contacts) {
+            $scope.allContacts = contacts;
+        });
     }]);

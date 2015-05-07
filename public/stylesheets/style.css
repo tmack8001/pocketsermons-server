@@ -1,8 +1,74 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
+}
+
+/* side nav */
+.md-sidenav-left md-content button.nav  {
+    width: 100%;
+    margin: 0;
+}
+
+/* layout content */
+
+.layout-content .content {
+    padding-top: 16px;
+    margin-top: 16px;
+}
+
+/* contact chips */
+.contactChips md-content.autocomplete {
+    min-height: 250px;
+}
+
+.contactChips .md-item-text.compact {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.contactChips .contact-item {
+    box-sizing: border-box;
+}
+
+.contactChips .contact-item.selected {
+    opacity: 0.5;
+}
+
+.contactChips .contact-item.selected h3 {
+    opacity: 0.5;
+}
+
+.contactChips .contact-item .md-list-item-text {
+    padding: 14px 0;
+}
+
+.contactChips .contact-item .md-list-item-text h3 {
+    margin: 0 !important;
+    padding: 0;
+    line-height: 1.2em !important;
+}
+
+.contactChips .contact-item .md-list-item-text h3, .contactChips .contact-item .md-list-item-text p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media (min-width: 900px) {
+    .contactChips .contact-item {
+        float: left;
+        width: 33%;
+    }
+}
+
+.contactChips md-contact-chips {
+    margin-bottom: 1rem;
+}
+
+.contactChips .md-chips {
+    padding: 0.5rem 0 0.8rem;
 }

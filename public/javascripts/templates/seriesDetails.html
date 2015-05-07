@@ -4,28 +4,30 @@
 
     <!-- editing text fields and update/cancel buttons -->
     <section ng-show="editing">
-        permalink: <input ng-show="editing" type="text" ng-model="series.permalink"> <br />
-        title: <input ng-show="editing" type="text" ng-model="series.title"> <br />
-        description: <input ng-show="editing" type="text" ng-model="series.description"> <br />
+        <md-content layout-padding layout="column">
+            permalink: <input ng-show="editing" type="text" ng-model="series.permalink"> <br />
+            title: <input ng-show="editing" type="text" ng-model="series.title"> <br />
+            description: <input ng-show="editing" type="text" ng-model="series.description"> <br />
 
-        <br />
+            <br />
 
-        <h4>Church</h4>
+            <h4>Church</h4>
 
-        id reference: <input ng-show="editing" ng-model="series.church._id"> <br />
+            id reference: <input ng-show="editing" ng-model="series.church._id"> <br />
 
-        <br />
+            <br />
 
-        <h4>Images</h4>
+            <h4>Images</h4>
 
-        <img src="{{series.imageUri}}"/> <br />
-        imageUri: <input ng-show="editing" ng-model="series.imageUri"> <br />
+            <img src="{{series.imageUri}}"/> <br />
+            imageUri: <input ng-show="editing" ng-model="series.imageUri"> <br />
 
-        <br /><br />
+            <br /><br />
 
-        <button ng-show="editing" ng-click="update()">update</button>
-        <button ng-show="editing" ng-click="remove()">remove</button>
-        <button ng-show="editing" ng-click="cancel()">cancel</button>
+            <button ng-show="editing" ng-click="update()">update</button>
+            <button ng-show="editing" ng-click="remove()">remove</button>
+            <button ng-show="editing" ng-click="cancel()">cancel</button>
+        </md-content>
     </section>
 
     <!-- viewing series information -->

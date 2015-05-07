@@ -1,1 +1,1 @@
-angular.module('pocketsermons', ['ngRoute', 'ngResource']);
+angular.module('pocketsermons', ['ngRoute', 'ngResource', 'ngMaterial']);

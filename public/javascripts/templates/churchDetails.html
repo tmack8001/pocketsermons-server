@@ -4,15 +4,17 @@
 
     <!-- editing text fields and update/cancel buttons -->
     <section ng-show="editing">
-        permalink: <input ng-show="editing" type="text" ng-model="church.permalink"> <br />
-        name: <input ng-show="editing" type="text" ng-model="church.name"> <br />
-        denomination <input ng-show="editing" ng-model="church.denomination"> <br />
+        <md-content layout-padding layout="column">
+            permalink: <input ng-show="editing" type="text" ng-model="church.permalink"> <br />
+            name: <input ng-show="editing" type="text" ng-model="church.name"> <br />
+            denomination <input ng-show="editing" ng-model="church.denomination"> <br />
 
-        <br /><br />
+            <br /><br />
 
-        <button ng-show="editing" ng-click="update()">update</button>
-        <button ng-show="editing" ng-click="remove()">remove</button>
-        <button ng-show="editing" ng-click="cancel()">cancel</button>
+            <button ng-show="editing" ng-click="update()">update</button>
+            <button ng-show="editing" ng-click="remove()">remove</button>
+            <button ng-show="editing" ng-click="cancel()">cancel</button>
+        </md-content>
     </section>
 
     <!-- viewing church information -->

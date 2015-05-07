@@ -3,28 +3,65 @@
     <button ng-show="!editing" ng-click="remove()">remove</button>
 
     <!-- editing text fields and update/cancel buttons -->
-    <section ng-show="editing">
-        permalink: <input ng-show="editing" type="text" ng-model="sermon.permalink"> <br />
-        title: <input ng-show="editing" type="text" ng-model="sermon.title"> <br />
-        date: <input ng-show="editing" type="datetime" ng-model="sermon.date"> <br />
-        description <textarea ng-show="editing" ng-model="sermon.description"></textarea> <br />
-        video uri: <input ng-show="editing" type="url" ng-model="sermon.videoUri"> <br />
+    <section ng-show="editing" layout="column">
+        <md-content layout-padding layout="column">
+            permalink: <input ng-show="editing" type="text" ng-model="sermon.permalink"> <br/>
+            title: <input ng-show="editing" type="text" ng-model="sermon.title"> <br/>
+            date: <input ng-show="editing" type="datetime" ng-model="sermon.date"> <br/>
+            description <textarea ng-show="editing" ng-model="sermon.description"></textarea> <br/>
+            video uri: <input ng-show="editing" type="url" ng-model="sermon.videoUri"> <br/>
 
-        series: <input ng-show="editing" type="text" ng-model="sermon.series._id"> <br />
-        church: <input ng-show="editing" type="text" ng-model="sermon.church._id"> <br />
-        speakers: <ul ng-repeat="speaker in sermon.speakers">
-            <li>
-                <input ng-show="editing" type="text" ng-model="speaker._id"> <button ng-click="removeSpeaker(speaker)">delete</button>
-            </li>
-        </ul>
-        <input ng-show="editing" type="text" ng-model="new_speaker_id" placeholder="add speaker" class="ng-pristine ng-valid">
+            series: <input ng-show="editing" type="text" ng-model="sermon.series._id"> <br/>
+            church: <input ng-show="editing" type="text" ng-model="sermon.church._id"> <br/>
 
-        <br /><br />
+            <!-- contact chips -->
+            <!-- having a second ng-controller here might remove the missing speakers array updates -->
 
-        <button ng-show="new" ng-click="save()">save</button>
-        <button ng-show="!new" ng-click="update()">update</button>
-        <button ng-show="!new" ng-click="remove()">remove</button>
-        <button ng-show="editing" ng-click="cancel()">cancel</button>
+            <div class="contactChips" ng-app="contactChipsDemo" layout="column">
+                <md-content class="md-padding autocomplete" layout="column">
+                    <p>Speakers</p>
+                    <md-contact-chips
+                            ng-model="sermon.speakers"
+                            md-contacts="querySearch($query)"
+                            md-contact-name="name"
+                            md-contact-image="image"
+                            md-contact-email="email"
+                            md-require-match
+                            filter-selected="filterSelected"
+                            placeholder="Speaker">
+                    </md-contact-chips>
+                    <br/>
+                    <md-list>
+                        <md-subheader class="md-no-sticky">Contacts</md-subheader>
+                        <md-list-item class="md-2-line contact-item"
+                                      ng-repeat="(index, contact) in allContacts"
+                                      ng-if="sermon.speakers.indexOf(contact) < 0">
+                            <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}"/>
+                            <div class="md-list-item-text compact">
+                                <h3>{{contact.name}}</h3>
+                                <p>{{contact.email}}</p>
+                            </div>
+                        </md-list-item>
+
+                        <md-list-item class="md-2-line contact-item selected"
+                                      ng-repeat="(index, contact) in sermon.speakers">
+                            <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}"/>
+                            <div class="md-list-item-text compact">
+                                <h3>{{contact.name}}</h3>
+                                <p>{{contact.email}}</p>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-content>
+            </div>
+
+            <br/><br/>
+
+            <button ng-show="new" ng-click="save()">save</button>
+            <button ng-show="!new" ng-click="update()">update</button>
+            <button ng-show="!new" ng-click="remove()">remove</button>
+            <button ng-show="editing" ng-click="cancel()">cancel</button>
+        </md-content>
     </section>
 
     <!-- viewing sermon information -->
@@ -32,12 +69,19 @@
         <header>
             <h1>{{sermon.title}}</h1>
             <h4>{{sermon.series.title}}</h4>
-            Date: <time pubdate="pubdate" datetime="{{sermon.date}}">{{sermon.date}}</time> <br />
-            Speakers: <ul>
-                <li ng-repeat="speaker in sermon.speakers">
-                    <a href="#/speakers/{{speaker._id}}">{{speaker.givenName}} {{speaker.familyName}}</a>
-                </li>
-            </ul>
+            Date:
+            <time pubdate="pubdate" datetime="{{sermon.date}}">{{sermon.date}}</time>
+            <br/>
+            <md-list class="contactChips">
+                <md-subheader class="md-no-sticky">Speakers</md-subheader>
+                <md-list-item class="md-2-line contact-item" ng-repeat="speaker in sermon.speakers">
+                    <img ng-src="{{speaker.image}}" class="md-avatar" alt="{{speaker.name}}" />
+                    <div class="md-list-item-text compact">
+                        <h3><a href="#/speakers/{{speaker._id}}">{{speaker.name}}</a></h3>
+                        <p>{{speaker.email}}</p>
+                    </div>
+                </md-list-item>
+            </md-list>
         </header>
 
         <video poster="{{sermon.series.imageUri}}" src="{{sermon.videoUri}}"></video>
@@ -45,7 +89,7 @@
 
         <footer>
             <p>
-                {{sermon.church.name}} <br />
+                {{sermon.church.name}} <br/>
                 <small>An {{sermon.church.denomination}} Church</small>
             </p>
         </footer>

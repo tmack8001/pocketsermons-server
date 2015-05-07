@@ -1,8 +1,50 @@
 doctype html
-html(ng-app='app')
+html(ng-app='pocketsermons')
     head
         title= title
         link(rel='stylesheet', href='/stylesheets/style.css')
+        //link(rel='stylesheet', href='https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css')
+        link(rel='stylesheet', href='https://rawgit.com/angular/bower-material/master/angular-material.css')
+
+        // Libraries
+        script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js')
+        //script(src='https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.js')
+        script(src='https://rawgit.com/angular/bower-material/master/angular-material.js')
+
+        // Angular Templates
+        include ../public/javascripts/templates/sermons.html
+        include ../public/javascripts/templates/sermonDetails.html
+        include ../public/javascripts/templates/churches.html
+        include ../public/javascripts/templates/churchDetails.html
+        include ../public/javascripts/templates/speakers.html
+        include ../public/javascripts/templates/speakerDetails.html
+        include ../public/javascripts/templates/series.html
+        include ../public/javascripts/templates/seriesDetails.html
+
+        // Main AngularJS App
+        script(src='/javascripts/app.js')
+        script(src='/javascripts/pocketsermons/pocketsermons.js')
+        script(src='/javascripts/pocketsermons/config/sce.js')
+        script(src='/javascripts/pocketsermons/config/icon.js')
+        script(src='/javascripts/pocketsermons/routes/sermonRoutes.js')
+        script(src='/javascripts/pocketsermons/factories/sermonFactory.js')
+        script(src='/javascripts/pocketsermons/controllers/sermonController.js')
+        script(src='/javascripts/pocketsermons/routes/churchRoutes.js')
+        script(src='/javascripts/pocketsermons/factories/churchFactory.js')
+        script(src='/javascripts/pocketsermons/controllers/churchController.js')
+        script(src='/javascripts/pocketsermons/routes/speakerRoutes.js')
+        script(src='/javascripts/pocketsermons/factories/speakerFactory.js')
+        script(src='/javascripts/pocketsermons/controllers/speakerController.js')
+        script(src='/javascripts/pocketsermons/routes/seriesRoutes.js')
+        script(src='/javascripts/pocketsermons/factories/seriesFactory.js')
+        script(src='/javascripts/pocketsermons/controllers/seriesController.js')
+
+        script(src='/javascripts/pocketsermons/ui/menu.js')
+
     body
         block content
         script(src='https://code.jquery.com/jquery-2.1.3.min.js')

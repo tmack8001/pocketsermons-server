@@ -1,38 +1,28 @@
 extends layout
 
 block content
-    // Libraries
-    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js')
-    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js')
-    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js')
+    div(layout='row', ng-controller='MenuCtrl', style="height: 100%;")
+        md-sidenav(class="md-sidenav-left md-whiteframe-z2 ng-isolate-scope", md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" tabindex="-1")
+            md-toolbar(class="md-theme-indigo md-toolbar-tools")
+                md-button(ng-click="toggleLeft()", class="md-icon-button", hide-gt-sm, aria-label="Close Menu")
+                    md-icon(md-svg-icon="ic_arrow_back", style="color: #fff;", aria-hidden="true")
+                md-button(ng-href="./admin", class="md-icon-button", show-gt-sm, aria-label="Application Icon")
+                    md-icon(md-svg-icon="menu", aria-hidden="true")
+                h2(class="md-toolbar-item md-breadcrumb") Pocketsermons
+            md-content(ng-controller="LeftCtrl", role="navigation", class="md-default-theme")
+                md-button(ng-click="navigate('/churches')", class="nav md-primary") Churches
+                md-button(ng-click="navigate('/series')", class="nav md-primary") Series
+                md-button(ng-click="navigate('/sermons')", class="nav md-primary") Sermons
+                md-button(ng-click="navigate('/speakers')", class="nav md-primary") Speakers
 
-    // Angular Templates
-    include ../public/javascripts/templates/sermons.html
-    include ../public/javascripts/templates/sermonDetails.html
-    include ../public/javascripts/templates/churches.html
-    include ../public/javascripts/templates/churchDetails.html
-    include ../public/javascripts/templates/speakers.html
-    include ../public/javascripts/templates/speakerDetails.html
-    include ../public/javascripts/templates/series.html
-    include ../public/javascripts/templates/seriesDetails.html
+        div(layout='column', flex)
+            md-toolbar
+                div(class="md-toolbar-tools", ng-click="toggleLeft()", tabindex="-1", role="button")
+                    md-button(ng-click="toggleLeft()", class="md-icon-button mb-button md-default-theme", ng-transclude, hide-gt-sm, aria-label="Toggle Menu")
+                        md-icon(md-svg-icon="ic_menu" style="color: #fff;" aria-hidden="true")
+                    h2(class="md-toolbar-item md-breadcrumb")
+                        span(class="md-breadcrumb-page") Admin Interface
 
-    // Main AngularJS App
-    script(src='/javascripts/app.js')
-    script(src='/javascripts/pocketsermons/pocketsermons.js')
-    script(src='/javascripts/pocketsermons/config/sce.js')
-    script(src='/javascripts/pocketsermons/routes/sermonRoutes.js')
-    script(src='/javascripts/pocketsermons/factories/sermonFactory.js')
-    script(src='/javascripts/pocketsermons/controllers/sermonController.js')
-    script(src='/javascripts/pocketsermons/routes/churchRoutes.js')
-    script(src='/javascripts/pocketsermons/factories/churchFactory.js')
-    script(src='/javascripts/pocketsermons/controllers/churchController.js')
-    script(src='/javascripts/pocketsermons/routes/speakerRoutes.js')
-    script(src='/javascripts/pocketsermons/factories/speakerFactory.js')
-    script(src='/javascripts/pocketsermons/controllers/speakerController.js')
-    script(src='/javascripts/pocketsermons/routes/seriesRoutes.js')
-    script(src='/javascripts/pocketsermons/factories/seriesFactory.js')
-    script(src='/javascripts/pocketsermons/controllers/seriesController.js')
-
-    h1= title
-
-    ng-view
+            md-content(flex, md-scroll-y, layout-padding, class="layout-content ng-scope")
+                div(layout="column", style="padding: 20px", layout-fill, layout-align="top center", class="content")
+                    ng-view
