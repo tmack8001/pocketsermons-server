@@ -2,23 +2,22 @@ extends layout
 
 block content
     div(layout='row', ng-controller='MenuCtrl', style="height: 100%;")
-        md-sidenav(class="md-sidenav-left md-whiteframe-z2 ng-isolate-scope", md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" tabindex="-1")
-            md-toolbar(class="md-theme-indigo md-toolbar-tools")
-                md-button(ng-click="toggleLeft()", class="md-icon-button", hide-gt-sm, aria-label="Close Menu")
+        md-sidenav(class="site-sidenav md-sidenav-left md-whiteframe-z2 ng-isolate-scope", md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" tabindex="-1")
+            md-toolbar(class="md-whiteframe-z2 md-theme-indigo md-toolbar-tools")
+                md-button(ng-click="toggleLeft()", class="md-icon-button", hide-gt-md, aria-label="Close Menu")
                     md-icon(md-svg-icon="ic_arrow_back", style="color: #fff;", aria-hidden="true")
-                md-button(ng-href="./admin", class="md-icon-button", show-gt-sm, aria-label="Application Icon")
-                    md-icon(md-svg-icon="menu", aria-hidden="true")
+                md-button(ng-href="./admin", class="md-icon-button", show-gt-md, aria-label="Application Icon")
+                    img(src="/img/app.png", aria-hidden="true", hide-lt-md)
                 h2(class="md-toolbar-item md-breadcrumb") Pocketsermons
-            md-content(ng-controller="LeftCtrl", role="navigation", class="md-default-theme")
-                md-button(ng-click="navigate('/churches')", class="nav md-primary") Churches
-                md-button(ng-click="navigate('/series')", class="nav md-primary") Series
-                md-button(ng-click="navigate('/sermons')", class="nav md-primary") Sermons
-                md-button(ng-click="navigate('/speakers')", class="nav md-primary") Speakers
+            md-content(ng-controller="LeftCtrl", role="navigation", class="md-default-theme", flex)
+                ul(class="main-menu")
+                    li(ng-repeat="section in menu.sections", class="parent-list-item ng-scope", ng-class="{'parentActive': isSectionSelected(section)}")
+                        md-button(ng-click="navigate(section)", class="nav md-primary") {{section.name}}
 
-        div(layout='column', flex)
-            md-toolbar
+        div(layout='column', tabindex="-1", role="main", flex)
+            md-toolbar(class="md-whiteframe-z2 md-default-theme")
                 div(class="md-toolbar-tools", ng-click="toggleLeft()", tabindex="-1", role="button")
-                    md-button(ng-click="toggleLeft()", class="md-icon-button mb-button md-default-theme", ng-transclude, hide-gt-sm, aria-label="Toggle Menu")
+                    md-button(ng-click="toggleLeft()", class="md-icon-button mb-button md-default-theme", ng-transclude, hide-gt-md, aria-label="Toggle Menu")
                         md-icon(md-svg-icon="ic_menu" style="color: #fff;" aria-hidden="true")
                     h2(class="md-toolbar-item md-breadcrumb")
                         span(class="md-breadcrumb-page") Admin Interface

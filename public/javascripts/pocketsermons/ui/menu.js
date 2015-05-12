@@ -22,9 +22,11 @@
             $scope.toggleRight = buildToggler('right');
         })
         .controller('LeftCtrl', function ($scope, $location, $timeout, $mdSidenav, $log) {
-            $scope.navigate = function (url) {
-                $log.debug('navigate to ' + url);
-                $location.url(url);
+            $scope.navigate = function (section) {
+                if (section !== null) {
+                    $scope.openedSection = section;
+                    $location.url(section.location);
+                }
             };
             $scope.close = function () {
                 $mdSidenav('left').close()
@@ -32,5 +34,22 @@
                         $log.debug('close LEFT is done');
                     });
             };
+
+            $scope.isSectionSelected = function(section) {
+                return $scope.openedSection === section;
+            };
+
+            var items = ['Churches', 'Series', 'Sermons', 'Speakers'];
+            $scope.menu = {
+                sections: items.map(function (c, index) {
+                    return {name: c, location: '/' + c.toLowerCase()};
+                })
+            };
+
+            $scope.openedSection = (function(location) {
+                return $scope.menu.sections.filter(function (section) {
+                    return section.location === location;
+                })[0];
+            }($location.$$path));
         });
 })();
