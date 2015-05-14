@@ -9,7 +9,6 @@ angular.module('pocketsermons')
     }])
 
     .controller('SermonDetailCtrl', ['$scope', '$routeParams', 'Sermons', '$location', '$timeout', '$q', '$http', function ($scope, $routeParams, Sermons, $location, $timeout, $q, $http) {
-
         if (!$scope.sermon) {
             if ($routeParams.id === 'new') {
                 $scope.sermon = {title: $routeParams.title, permalink: $routeParams.permalink, speakers: []};
@@ -71,7 +70,25 @@ angular.module('pocketsermons')
                 return c._id;
             });
 
-            Sermons.update({id: sermon._id}, sermon);
+            Sermons.update({id: sermon._id}, sermon, function(res) {
+                if (res && res.$resolved) {
+                    console.log(res);
+                    $scope.sermon = res.sermon;
+                    if ($scope.sermon.speakers) {
+                        // TODO: remove after adding name, email, image to the API
+                        $scope.sermon.speakers = $scope.sermon.speakers.map(function (c, index) {
+                            var contact = {
+                                _id: c._id,
+                                name: c.givenName + ' ' + c.familyName,
+                                email: c.givenName.toLowerCase() + '.' + c.familyName.toLowerCase() + '@example.com', // TODO: replace with email
+                                image: 'http://lorempixel.com/50/50/people?' + c._id // TODO: replace with profile picture
+                            };
+                            contact._lowername = contact.name.toLowerCase();
+                            return contact;
+                        });
+                    }
+                }
+            });
             $scope.editing = false;
         };
 

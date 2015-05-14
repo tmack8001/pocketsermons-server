@@ -13,9 +13,10 @@ var Series = require('../../models/series');
 exports.findAll = function (req, res) {
     return Series.find(function (err, series) {
         if (!err) {
-            return res.send({'series': series});
+            res.send({'series': series});
         } else {
-            return console.log(err);
+            console.log(err);
+            res.send({'error': 'An error has occurred - ' + err});
         }
     });
 };
@@ -35,10 +36,12 @@ exports.create = function (req, res) {
     series.save(function (err) {
         if (!err) {
             console.log('created');
-            return res.send({'series': series});
+            Series.populate(series, { path: 'church', model: 'Church' }, function (err, user) {
+                res.send({'series': series});
+            });
         } else {
             console.log(err);
-            return res.send({'error': 'An error has occurred - ' + err});
+            res.send({'error': 'An error has occurred - ' + err});
         }
     });
 };
@@ -47,12 +50,12 @@ exports.create = function (req, res) {
 exports.findById = function (req, res) {
     return Series.findById(req.params.id, function (err, series) {
         if (!err) {
-            return res.send({'series': series});
+            res.send({'series': series});
         } else {
             console.log(err);
-            return res.send({'error': 'An error has occurred - ' + err});
+            res.send({'error': 'An error has occurred - ' + err});
         }
-    });
+    }).populate('church');
 };
 
 /* UPDATE single series by :id */
@@ -68,7 +71,9 @@ exports.update = function (req, res) {
         return series.save(function (err) {
             if (!err) {
                 console.log('updated');
-                return res.send({'series': series});
+                Series.populate(series, { path: 'church', model: 'Church' }, function (err, series) {
+                    res.send({'series': series});
+                });
             } else {
                 console.log(err);
                 res.send({'error': 'An error has occurred - ' + err});
@@ -83,7 +88,7 @@ exports.remove = function (req, res) {
         return series.remove(function (err) {
             if (!err) {
                 console.log('removed');
-                return res.send('');
+                res.send('');
             } else {
                 console.log(err);
                 res.send({'error': 'An error has occurred - ' + err});

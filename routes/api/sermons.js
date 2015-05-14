@@ -18,9 +18,10 @@ exports.findAll = function (req, res) {
         .populate('church series speakers')
         .exec(function (err, sermons) {
             if (!err) {
-                return res.send({'sermons': sermons});
+                res.send({'sermons': sermons});
             } else {
-                return console.log(err);
+                console.log(err);
+                res.send({'error': 'An error has occurred - ' + err});
             }
         });
 };
@@ -43,10 +44,15 @@ exports.create = function (req, res) {
     sermon.save(function (err) {
         if (!err) {
             console.log('created');
-            return res.send({'sermon': sermon});
+            var populateQuery = [{ path: 'church', model: 'Church' },
+                { path: 'series', model: 'Series' },
+                { path: 'speakers', model: 'Speaker' }];
+            Sermon.populate(sermon, populateQuery, function (err, sermon) {
+                res.send({'sermon': sermon});
+            });
         } else {
             console.log(err);
-            return res.send({'error': 'An error has occurred - ' + err});
+            res.send({'error': 'An error has occurred - ' + err});
         }
     });
 };
@@ -81,7 +87,12 @@ exports.update = function (req, res) {
         return sermon.save(function (err) {
             if (!err) {
                 console.log('updated');
-                res.send({'sermon': sermon});
+                var populateQuery = [{path: 'church', model: 'Church'},
+                    {path: 'series', model: 'Series'},
+                    {path: 'speakers', model: 'Speaker'}];
+                Sermon.populate(sermon, populateQuery, function (err, sermon) {
+                    res.send({'sermon': sermon});
+                });
             } else {
                 console.log(err);
                 res.send({'error': 'An error has occurred - ' + err});
@@ -114,11 +125,14 @@ exports.patch = function (req, res) {
             sermon.series = req.body.series;
         // update modified date
         sermon.modified = Date.now();
-        console.log('data to save:');
-        console.log(sermon);
         return sermon.save(function (err) {
             if (!err) {
-                res.send({'sermon': sermon});
+                var populateQuery = [{path: 'church', model: 'Church'},
+                    {path: 'series', model: 'Series'},
+                    {path: 'speakers', model: 'Speaker'}];
+                Sermon.populate(sermon, populateQuery, function (err, user) {
+                    res.send({'sermon': sermon});
+                });
             } else {
                 console.log(err);
                 res.send({'error': 'An error has occurred - ' + err});

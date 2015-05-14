@@ -17,9 +17,10 @@ var Speaker = require('../../models/speaker');
 exports.findAll = function (req, res) {
     return Speaker.find(function (err, speakers) {
         if (!err) {
-            return res.send({'speakers': speakers});
+            res.send({'speakers': speakers});
         } else {
-            return console.log(err);
+            console.log(err);
+            res.send({'error': 'An error has occurred - ' + err});
         }
     });
 };
@@ -40,10 +41,10 @@ exports.create = function (req, res) {
     speaker.save(function (err) {
         if (!err) {
             console.log('created');
-            return res.send({'speaker': speaker});
+            res.send({'speaker': speaker});
         } else {
             console.log(err);
-            return res.send({'error': 'An error has occurred - ' + err});
+            res.send({'error': 'An error has occurred - ' + err});
         }
     });
 };
@@ -52,10 +53,10 @@ exports.create = function (req, res) {
 exports.findById = function (req, res) {
     return Speaker.findById(req.params.id, function (err, speaker) {
         if (!err) {
-            return res.send({'speaker': speaker});
+            res.send({'speaker': speaker});
         } else {
             console.log(err);
-            return res.send({'error': 'An error has occurred - ' + err});
+            res.send({'error': 'An error has occurred - ' + err});
         }
     });
 };
@@ -74,7 +75,7 @@ exports.update = function (req, res) {
         return speaker.save(function (err) {
             if (!err) {
                 console.log('updated');
-                return res.send({'speaker': speaker});
+                res.send({'speaker': speaker});
             } else {
                 console.log(err);
                 res.send({'error': 'An error has occurred - ' + err});
@@ -89,7 +90,7 @@ exports.remove = function (req, res) {
         return speaker.remove(function (err) {
             if (!err) {
                 console.log('removed');
-                return res.send('');
+                res.send('');
             } else {
                 console.log(err);
                 res.send({'error': 'An error has occurred - ' + err});

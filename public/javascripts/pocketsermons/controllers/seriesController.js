@@ -29,7 +29,11 @@ angular.module('pocketsermons')
             // breakdown ObjectId references
             series.church = series.church._id;
 
-            Series.update({id: series._id}, series);
+            Series.update({id: series._id}, series, function(res) {
+                if (res && res.$resolved) {
+                    $scope.series = res.series;
+                }
+            });
             $scope.editing = false;
         };
 
