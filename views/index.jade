@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    div(layout='row', ng-controller='MenuCtrl', style="height: 100%;")
+    div(layout='row', style="height: 100%;")
         md-sidenav(class="site-sidenav md-sidenav-left md-whiteframe-z2 ng-isolate-scope", md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" tabindex="-1")
             md-toolbar(class="md-whiteframe-z2 md-theme-indigo md-toolbar-tools")
                 md-button(ng-click="toggleLeft()", class="md-icon-button", hide-gt-md, aria-label="Close Menu")
@@ -9,7 +9,7 @@ block content
                 md-button(ng-href="./admin", class="md-icon-button", show-gt-md, aria-label="Application Icon")
                     img(src="/img/app.png", aria-hidden="true", hide-lt-md)
                 h2(class="md-toolbar-item md-breadcrumb") Pocketsermons
-            md-content(ng-controller="LeftCtrl", role="navigation", class="md-default-theme", flex)
+            md-content(role="navigation", class="md-default-theme", flex)
                 ul(class="main-menu")
                     li(ng-repeat="section in menu.sections", class="parent-list-item ng-scope", ng-class="{'parentActive': isSectionSelected(section)}")
                         md-button(ng-click="navigate(section)", class="nav md-primary") {{section.name}}
@@ -20,7 +20,10 @@ block content
                     md-button(ng-click="toggleLeft()", class="md-icon-button mb-button md-default-theme", ng-transclude, hide-gt-md, aria-label="Toggle Menu")
                         md-icon(md-svg-icon="ic_menu" style="color: #fff;" aria-hidden="true")
                     h2(class="md-toolbar-item md-breadcrumb")
-                        span(class="md-breadcrumb-page") Admin Interface
+                        span(class="md-breadcrumb-page") Admin
+                    // TODO: add separator icon
+                    h2(class="md-toolbar-item md-breadcrumb")
+                        span(class="md-breadcrumb-page") &nbsp;> {{currentSection.name}}
 
             md-content(flex, md-scroll-y, layout-padding, class="layout-content ng-scope")
                 div(layout="column", style="padding: 20px", layout-fill, layout-align="top center", class="content")

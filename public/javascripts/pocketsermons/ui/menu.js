@@ -2,7 +2,7 @@
     'use strict';
     angular
         .module('pocketsermons')
-        .controller('MenuCtrl', function ($scope, $timeout, $mdSidenav, $mdUtil, $log) {
+        .controller('LeftCtrl', function ($scope, $location, $timeout, $mdSidenav, $mdUtil, $log) {
             /**
              * Build handler to open/close a SideNav; when animation finishes
              * report completion in console
@@ -20,14 +20,14 @@
 
             $scope.toggleLeft = buildToggler('left');
             $scope.toggleRight = buildToggler('right');
-        })
-        .controller('LeftCtrl', function ($scope, $location, $timeout, $mdSidenav, $log) {
+
             $scope.navigate = function (section) {
                 if (section !== null) {
-                    $scope.openedSection = section;
+                    $scope.currentSection = section;
                     $location.url(section.location);
                 }
             };
+
             $scope.close = function () {
                 $mdSidenav('left').close()
                     .then(function () {
@@ -46,10 +46,14 @@
                 })
             };
 
-            $scope.openedSection = (function(location) {
+            function currentSection(location) {
                 return $scope.menu.sections.filter(function (section) {
                     return section.location === location;
                 })[0];
-            }($location.$$path));
+            }
+
+            if (!$scope.currentSection) {
+                $scope.currentSection = currentSection($location.$$path);
+            }
         });
 })();

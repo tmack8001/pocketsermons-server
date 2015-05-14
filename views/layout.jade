@@ -1,7 +1,7 @@
 doctype html
-html(ng-app='pocketsermons')
+html(ng-app='pocketsermons', ng-controller="LeftCtrl")
     head
-        title= title
+        title Admin > {{currentSection.name}}
         link(rel="shortcut icon", type="image/x-icon", href="/img/favicon.ico")
         link(rel='stylesheet', href='/stylesheets/style.css')
         //link(rel='stylesheet', href='https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css')
