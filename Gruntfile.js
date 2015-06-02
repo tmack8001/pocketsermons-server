@@ -88,6 +88,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-concurrent');
 
+    grunt.registerTask('build', ['jshint']);
     grunt.registerTask('default', ['jshint', 'concurrent:dev']);
 };
 		
