@@ -24,7 +24,7 @@ angular.module('pocketsermons')
                                 _id: c._id,
                                 name: c.givenName + ' ' + c.familyName,
                                 email: c.givenName.toLowerCase() + '.' + c.familyName.toLowerCase() + '@example.com', // TODO: replace with email
-                                image: 'http://lorempixel.com/50/50/people?' + c._id // TODO: replace with profile picture
+                                image: c.images.profile.uri ? c.images.profile.uri : '/img/profile_default.png' // TODO: figure out err-src fallback for md-contact-chips
                             };
                             contact._lowername = contact.name.toLowerCase();
                             return contact;
@@ -81,7 +81,7 @@ angular.module('pocketsermons')
                                 _id: c._id,
                                 name: c.givenName + ' ' + c.familyName,
                                 email: c.givenName.toLowerCase() + '.' + c.familyName.toLowerCase() + '@example.com', // TODO: replace with email
-                                image: 'http://lorempixel.com/50/50/people?' + c._id // TODO: replace with profile picture
+                                image: c.images.profile.uri ? c.images.profile.uri : '/img/profile_default.png' // TODO: figure out err-src fallback for md-contact-chips
                             };
                             contact._lowername = contact.name.toLowerCase();
                             return contact;
@@ -140,7 +140,7 @@ angular.module('pocketsermons')
                             _id: c._id,
                             name: c.givenName + ' ' + c.familyName,
                             email: c.givenName.toLowerCase() + '.' + c.familyName.toLowerCase() + '@example.com', // TODO: replace with email
-                            image: 'http://lorempixel.com/50/50/people?' + c._id // TODO: replace with profile picture
+                            image: c.images.profile.uri
                         };
                         contact._lowername = contact.name.toLowerCase();
                         return contact;

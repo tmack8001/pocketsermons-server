@@ -36,7 +36,8 @@
                         <md-list-item class="md-2-line contact-item"
                                       ng-repeat="(index, contact) in allContacts"
                                       ng-if="sermon.speakers.indexOf(contact) < 0">
-                            <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}"/>
+                            <img ng-src="{{contact.image}}" err-src="/img/profile_default.png"
+                                 class="md-avatar" alt="{{contact.name}}"/>
                             <div class="md-list-item-text compact">
                                 <h3>{{contact.name}}</h3>
                                 <p>{{contact.email}}</p>
@@ -45,7 +46,8 @@
 
                         <md-list-item class="md-2-line contact-item selected"
                                       ng-repeat="(index, contact) in sermon.speakers">
-                            <img ng-src="{{contact.image}}" class="md-avatar" alt="{{contact.name}}"/>
+                            <img ng-src="{{contact.image}}" err-src="/img/profile_default.png"
+                                 class="md-avatar" alt="{{contact.name}}"/>
                             <div class="md-list-item-text compact">
                                 <h3>{{contact.name}}</h3>
                                 <p>{{contact.email}}</p>
@@ -75,7 +77,8 @@
             <md-list class="contactChips">
                 <md-subheader class="md-no-sticky">Speakers</md-subheader>
                 <md-list-item class="md-2-line contact-item" ng-repeat="speaker in sermon.speakers">
-                    <img ng-src="{{speaker.image}}" class="md-avatar" alt="{{speaker.name}}" />
+                    <img ng-src="{{speaker.image}}" err-src="/img/profile_default.png"
+                         class="md-avatar" alt="{{speaker.name}}" />
                     <div class="md-list-item-text compact">
                         <h3><a href="#/speakers/{{speaker._id}}">{{speaker.name}}</a></h3>
                         <p>{{speaker.email}}</p>

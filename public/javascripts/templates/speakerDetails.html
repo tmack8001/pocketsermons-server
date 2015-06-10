@@ -13,6 +13,10 @@
 
             <br />
 
+            profile: <input ng-show="editing" type="text" ng-model="speaker.images.profile.uri" err-src="/img/profile_default.png"> <br />
+
+            <br />
+
             <h4>Organizational Affiliation</h4>
             name: <input ng-show="editing" type="text" ng-model="speaker.affiliation.name"> <br />
             role: <input ng-show="editing" ng-model="speaker.affiliation.role"> <br />
@@ -30,7 +34,8 @@
         <header>
             <md-list class="contactChips">
                 <md-list-item style="width: 100%;" class="md-2-line contact-item">
-                    <img ng-src="http://lorempixel.com/50/50/people?1" class="md-avatar" alt="{{speaker.givenName}} {{speaker.familyName}}" />
+                    <img ng-src="{{speaker.images.profile.uri}}" err-src="/img/profile_default.png"
+                         class="md-avatar" alt="{{speaker.givenName}} {{speaker.familyName}}" />
                     <div class="md-list-item-text compact">
                         <h3><a href="#/speakers/{{speaker._id}}">{{speaker.givenName}} {{speaker.familyName}}</a></h3>
                         <p>{{speaker.affiliation.role}} at {{speaker.affiliation.name}}</p>

@@ -6,6 +6,11 @@ var Speaker = require('../../models/speaker');
  familyName: { type: String, required: true },
  honorificPrefix: { type: String },
  honorificSuffix: { type: String },
+ images: {
+        profile: {
+            uri: { type: String }
+        }
+    },
  affiliation: {
         name: { type: String },
         role: { type: String }
@@ -36,6 +41,7 @@ exports.create = function (req, res) {
         familyName: req.body.familyName,
         honorificPrefix: req.body.honorificPrefix,
         honorificSuffix: req.body.honorificSuffix,
+        images: req.body.images,
         affiliation: req.body.affiliation
     });
     speaker.save(function (err) {
@@ -69,6 +75,7 @@ exports.update = function (req, res) {
         speaker.familyName = req.body.familyName;
         speaker.honorificPrefix = req.body.honorificPrefix;
         speaker.honorificSuffix = req.body.honorificSuffix;
+        speaker.images = req.body.images;
         speaker.affiliation = req.body.affiliation;
         // update modified date
         speaker.modified = Date.now();

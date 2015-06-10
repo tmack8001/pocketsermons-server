@@ -8,6 +8,11 @@ var SpeakerSchema = new Schema({
     familyName: { type: String, required: true },
     honorificPrefix: { type: String },
     honorificSuffix: { type: String },
+    images: {
+        profile: {
+            uri: { type: String }
+        }
+    },
     affiliation: {
         name: { type: String },
         role: { type: String }
