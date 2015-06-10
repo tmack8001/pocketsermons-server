@@ -23,8 +23,9 @@ var defineRestMethods = function(name, resource) {
     router.delete(pathById, resource.remove);
 };
 
-defineRestMethods('sermons', sermons);
+router.get('/v1/sermons/search', sermons.search);
 router.patch('/v1/sermons/:id', sermons.patch);
+defineRestMethods('sermons', sermons);
 
 defineRestMethods('speakers', speakers);
 defineRestMethods('churches', churches);

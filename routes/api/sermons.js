@@ -26,6 +26,30 @@ exports.findAll = function (req, res) {
         });
 };
 
+exports.search = function (req, res) {
+    var query = Sermon.find();
+    if (req.query.series_id) {
+        console.log('filter by series: ' + req.query.series_id);
+        query.where('series').equals(req.query.series_id);
+    }
+    if (req.query.church_id) {
+        query.where('church').equals(req.query.church_id);
+    }
+    if (req.query.speaker_id) {
+        query.where('speakers').equals(req.query.speaker_id);
+    }
+    return query.sort({date: 'desc'})
+        .populate('church series speakers')
+        .exec(function (err, sermons) {
+            if (!err) {
+                res.send({'sermons': sermons});
+            } else {
+                console.log(err);
+                res.send({'error': 'An error has occurred - ' + err});
+            }
+        });
+};
+
 /* CREATE sermon instance */
 exports.create = function (req, res) {
     var sermon;
