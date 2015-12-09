@@ -6,6 +6,8 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var responseTime = require('response-time');
+var StatsD = require('node-statsd');
 
 var routes = require('./routes/index');
 var apiRoutes = require('./routes/api');
@@ -22,6 +24,15 @@ mongoose.connect(databaseUri, function (err) {
 });
 
 var app = express();
+var stats = new StatsD({prefix: 'pocketsermons_'});
+
+// setup timing statistics
+app.use(responseTime(function (req, res, time) {
+    var stat = (req.method + req.url).toLowerCase()
+        .replace(/[:\.]/g, '')
+        .replace(/\//g, '_');
+    stats.timing(stat, time);
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
